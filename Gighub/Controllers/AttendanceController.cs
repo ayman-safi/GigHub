@@ -26,7 +26,7 @@ namespace Gighub.Controllers
                 GIgId = dto.gigId ,
                 AttendeeId =  userId 
                 
-        };
+            };
             _context.Attendances.Add(attendance);
             _context.SaveChanges();
             return Ok(); 

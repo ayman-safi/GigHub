@@ -2,6 +2,6 @@
 {
     public class followDto
     {
-        public int follow { get; set; }
+        public string follow { get; set; }
     }
 }
