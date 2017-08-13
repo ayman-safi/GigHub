@@ -1,6 +1,7 @@
 ﻿using Gighub.Models;
 using Gighub.ViewModels;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -9,6 +10,7 @@ namespace Gighub.Controllers
 {
     public class GigsController : Controller
     {
+        
         private ApplicationDbContext _Context;
         public GigsController()
         {
@@ -24,24 +26,7 @@ namespace Gighub.Controllers
             };
             return View(viewmodel);
         }
-        [Authorize]
-        public ActionResult attending()
-        {
-            var userId = User.Identity.GetUserId();
-            var gigs = _Context.Attendances
-                .Where(a => a.AttendeeId == userId)
-                .Select(a => a.Gig)
-                .Include( a =>a.Artist)
-                .Include(a =>a.Genre)
-                .ToList();
-            var viewmodel = new Homeviewmodel()
-            {
-                Upcominggigs = gigs,
-                ShowActions = User.Identity.IsAuthenticated,
-                heading =" Gigs I'm attending "
-            };
-            return View("gigs",viewmodel);
-        }
+
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,7 +49,35 @@ namespace Gighub.Controllers
             };
             _Context.Gigs.Add(gig);
             _Context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("mine", "Gigs");
+        }
+        [Authorize]
+        public ActionResult attending()
+        {
+            var userId = User.Identity.GetUserId();
+            var gigs = _Context.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Gig)
+                .Include(a => a.Artist)
+                .Include(a => a.Genre)
+                .ToList();
+            var viewmodel = new Homeviewmodel()
+            {
+                Upcominggigs = gigs,
+                ShowActions = User.Identity.IsAuthenticated,
+                heading = " Gigs I'm attending "
+            };
+            return View("gigs", viewmodel);
+        }
+        public  ActionResult mine()
+        {
+            var userId = User.Identity.GetUserId();
+            var gigs = _Context.Gigs
+                .Where(a => a.ArtistId == userId && a.DateTime > DateTime.Now)
+                .Include(a=>a.Genre)
+                .ToList();
+            return View(gigs);
         }
     }
 }
+
