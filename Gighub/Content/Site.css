@@ -168,3 +168,9 @@ span.field-validation-error {
 .gigs > li:hover .actions {
     display:block;
 }
+.follow-btn {
+    position: absolute;
+    left: 70px;
+    top: 0px;
+    margin-bottom:15px;
+}

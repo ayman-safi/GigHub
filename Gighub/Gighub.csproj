@@ -199,8 +199,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AttendanceController.cs" />
-    <Compile Include="Controllers\FollowController.cs" />
+    <Compile Include="Controllers\Api\GigsController.cs" />
+    <Compile Include="Controllers\Api\AttendanceController.cs" />
+    <Compile Include="Controllers\Api\FollowController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -245,6 +246,10 @@
     <Compile Include="Migrations\201708111901491_following.Designer.cs">
       <DependentUpon>201708111901491_following.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708131957048_gigdeleteproperty.cs" />
+    <Compile Include="Migrations\201708131957048_gigdeleteproperty.Designer.cs">
+      <DependentUpon>201708131957048_gigdeleteproperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -277,6 +282,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -328,7 +334,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Gigs\GigForm.cshtml" />
-    <Content Include="Views\Gigs\attending.cshtml" />
     <Content Include="Views\Gigs\mine.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -376,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708111901491_following.resx">
       <DependentUpon>201708111901491_following.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708131957048_gigdeleteproperty.resx">
+      <DependentUpon>201708131957048_gigdeleteproperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

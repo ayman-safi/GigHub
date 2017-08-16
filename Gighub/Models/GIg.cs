@@ -7,10 +7,13 @@ namespace Gighub.Models
     {
         public int Id { get; set; }
 
+        public bool IsCanceled { get; set; }
+
         [Required]
         public string ArtistId { get; set; }
 
         public ApplicationUser Artist { get; set; }
+
         public DateTime DateTime { get; set; }
 
         [Required]
@@ -19,6 +22,7 @@ namespace Gighub.Models
 
         [Required]
         public byte GenreId { get; set; }
+
         public Genre Genre { get; set; }
     }
 }

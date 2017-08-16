@@ -19,16 +19,22 @@
                 <span class="artist">
                     @gig.Artist.Name  
                 </span>
-                @if (Model.ShowActions)
-                {
-                    <button class="btn btn-link btn-sm js-toggel-following" data-user-id="@gig.ArtistId">follow</button>
-                }
+                <div class="follow-btn ">
+                    @if (Model.ShowActions)
+                    {
+                        if (gig.IsCanceled)
+                        {
+                            <spna class="label label-warning">Canceled</spna>
+                        }
+                        <button class="btn btn-link btn-sm js-toggel-following" style="float:right;" data-user-id="@gig.ArtistId">follow</button>
+                    }
+                </div>
                 <span class="genre">
                     @gig.Genre.Name
                 </span>
-                @if (Model.ShowActions)
+                @if (Model.ShowActions && !gig.IsCanceled)
                 {
-                    <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggel-attendance">Going ?</button>
+                    <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggel-attendance voffset1">Going ?</button>
                 }
                 
             </div>
