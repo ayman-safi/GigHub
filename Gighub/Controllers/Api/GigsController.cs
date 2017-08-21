@@ -1,6 +1,6 @@
 ﻿using Gighub.Models;
 using Microsoft.AspNet.Identity;
-using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 
@@ -18,34 +18,20 @@ namespace Gighub.Controllers.Api
         public IHttpActionResult Cancel(int id)
         {
            var userId = User.Identity.GetUserId();
-            var gig = _context.Gigs.Single(a => a.Id ==id && a.ArtistId == userId);
+            // we use attendances.select( s=> s.attendee) because it is an collection type 
+            var gig = _context.Gigs.Include(a=> a.Attendances.Select(s =>s.Attendee))
+                .Single(a => a.Id ==id && a.ArtistId == userId);
 
             if (gig.IsCanceled)
                 return NotFound();
+            // we replace this few lines by using eager loading which join the atendances table with gig
 
-            gig.IsCanceled = true;
-
-            var notification = new Notification
-            {
-                Datetime= DateTime.Now,
-                Type= NotificationType.GigCanceled,
-                Gig=gig,
-            };
-            var attendees = _context.Attendances
-                .Where(a => a.GIgId == gig.Id)
-                .Select(a => a.Attendee)
-                .ToList();
-
-            foreach( var attendee in attendees)
-            {
-                var userNotification = new UserNotification
-                {
-                    User = attendee,
-                    Notification= notification
-                };
-                _context.UserNotifications.Add(userNotification);
-            }
-
+            //var attendees = _context.Attendances
+            //    .Where(a => a.GIgId == gig.Id)
+            //    .Select(a => a.Attendee)
+            //    .ToList();
+            // for optimizing propose make method to implement the cancel function
+            gig.Cancel();
             _context.SaveChanges();
             return Ok();
         }

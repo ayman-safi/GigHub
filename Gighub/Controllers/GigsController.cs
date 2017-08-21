@@ -5,7 +5,6 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-
 namespace Gighub.Controllers
 {
     public class GigsController : Controller
@@ -86,14 +85,11 @@ namespace Gighub.Controllers
             }
             var userId = User.Identity.GetUserId();
             var genre = _Context.Genres.Single(g => g.Id == viewmodel.Genre);
-            var gig = _Context.Gigs.Single(s => s.Id == viewmodel.Id && s.ArtistId == userId);
-            gig.Venue = viewmodel.Venue;
-            gig.GenreId = viewmodel.Genre;
-            gig.DateTime = viewmodel.GetDateTime();
-            
-
-
-            
+            // eager loading
+            var gig = _Context.Gigs
+                .Include(a => a.Attendances.Select(b=>b.Attendee))
+                .Single(s => s.Id == viewmodel.Id && s.ArtistId == userId);
+            gig.modify(viewmodel.GetDateTime(), viewmodel.Venue, viewmodel.Genre);
             _Context.SaveChanges();
             return RedirectToAction("mine", "Gigs");
         }
