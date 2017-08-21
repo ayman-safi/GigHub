@@ -9,7 +9,9 @@ namespace Gighub
     {
         public static void Register(HttpConfiguration config)
         {
-            config.MapHttpAttributeRoutes();
+            //var setting = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings;
+            //setting.ContractResolver = new CamelCasepropertyContractResolver();
+            //config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
