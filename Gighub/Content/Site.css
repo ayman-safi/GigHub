@@ -71,6 +71,15 @@ textarea {
         text-decoration: none;
         background-color: rgb(255, 67, 66);
 }
+.navbar-inverse .notifications {
+    position: relative;
+}
+.navbar-inverse .notifications .badge {
+    position:absolute;
+    top:8px;
+    right:-1px;
+    background:rgba(187, 13, 12, 0.56);
+}
 body{
     font-size:17px;
 }

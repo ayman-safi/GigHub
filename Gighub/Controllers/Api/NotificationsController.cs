@@ -20,7 +20,7 @@ namespace Gighub.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
             var notification = _context.UserNotifications
-                .Where(u => u.UserId == userId && !u.IsRead)
+                .Where(u => u.UserId == userId && !u.IsRead) // just unreading notification
                 .Select(u => u.Notification)
                 .Include(u=>u.Gig.Artist)
                 //.ProjectTo<NotificationDto>() and returb the ob
