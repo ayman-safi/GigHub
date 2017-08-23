@@ -15,7 +15,9 @@
 .dl-horizontal dt {
     white-space: normal;
 }
-
+.popover{
+    box-shadow:none;
+}
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
@@ -182,4 +184,22 @@ span.field-validation-error {
     left: 70px;
     top: 0px;
     margin-bottom:15px;
+}
+ul.notifications {
+    list-style:none;
+    padding-left:0;
+
+}
+ul.notifications > li {
+    border-bottom:1px solid #ddd;
+    padding:10px 0 ;
+}
+ul.notifications > li:last-child{
+    border-bottom:none;
+}
+.pop-notif .popover-content{
+    padding:0;
+}
+.pop-notif ul.notifications .highlight{
+    font-weight:bold;
 }
