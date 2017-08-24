@@ -23,12 +23,10 @@ namespace Gighub
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/animate.css",
                       "~/Content/bootstrap.css",
-                      "~/Content/site.less"));
+                      "~/Content/site.css"));
         }
     }
 }
