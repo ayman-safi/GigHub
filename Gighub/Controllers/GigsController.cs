@@ -52,6 +52,12 @@ namespace Gighub.Controllers
             _Context.SaveChanges();
             return RedirectToAction("mine", "Gigs");
         }
+
+        public ActionResult Search(Homeviewmodel viewmodel)
+        {
+            return RedirectToAction("Index", "Home", new { query = viewmodel.SearchTerm });
+        }
+
         [Authorize]
         // GET: Gigs
         public ActionResult Edit(int Id)

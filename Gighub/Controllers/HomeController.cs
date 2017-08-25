@@ -14,18 +14,29 @@ namespace Gighub.Controllers
         {
             _context = new ApplicationDbContext();
         }
-        public ActionResult Index()
+        public ActionResult Index(string query=null)
         {
             // notice that include is in using.system.data.entity
             var upcominggigs = _context.Gigs.
                 Include(m => m.Artist).
                 Include(m => m.Genre).
                 Where(g => g.DateTime > DateTime.Now);
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                upcominggigs = upcominggigs
+                    .Where(g =>
+                    g.Artist.Name.Contains(query) ||
+                    g.Genre.Name.Contains(query)||
+                    g.Venue.Contains(query));
+            }
             var viewmodel = new Homeviewmodel
             {
                 Upcominggigs = upcominggigs,
                 ShowActions = User.Identity.IsAuthenticated,
-                heading = " Upcoming Gigs"
+                heading = " Upcoming Gigs",
+                SearchTerm = query
+                
             };
             return View("gigs",viewmodel);
         }
